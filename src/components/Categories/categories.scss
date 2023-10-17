@@ -1,0 +1,24 @@
+.categories {
+    padding: 0 60px 37px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.category {
+    background-color:#F9F9F9;
+    padding: 15px;
+    color: #5C5C5C;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 25px;
+    box-shadow: 0 5px 10px #0000000A;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #5C5C5C;
+        color: #F9F9F9;
+        transition: all 0.15s linear;
+    }
+}

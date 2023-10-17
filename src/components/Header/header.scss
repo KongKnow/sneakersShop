@@ -52,6 +52,10 @@
         align-items: center;
     }
 
+    &-cart {
+        cursor: pointer;
+    }
+
     &-cart-sum {
         color: #5C5C5C;
         font-weight: 600;

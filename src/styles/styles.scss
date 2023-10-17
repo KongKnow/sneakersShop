@@ -1,5 +1,9 @@
 @import './vars.scss';
-@import '../Header/header.scss';
+@import '../components/Header/header.scss';
+@import '../components/Slider/slider.scss';
+@import '../components/Categories/categories.scss';
+@import '../components/Products/products.scss';
+@import '../components/Cart/cart.scss';
 
 *, ::after, ::before {
 	font-size: 14px;
@@ -43,6 +47,10 @@ body {
 	background-color: 
 	#E7F6FF;
 	padding: 85px 85px 0 85px;
+
+	&.active {
+		overflow: hidden;
+	}
 }
 ol, ul {
 	list-style: none;
@@ -65,4 +73,25 @@ table {
 	width: 1080px;
 	margin: 0 auto;
 	box-shadow: 0px 10px 20px 0px #0000000A;
+
+	&.active {
+		overflow: hidden;
+	}
+}
+
+.skeleton {
+	border: 1px solid #F3F3F3;
+    border-radius: 40px;
+	width: 210px;
+	margin-bottom: 40px;
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+	width: 5px;
+	background-color: #ccc;
+	border-radius: 20px;
 }

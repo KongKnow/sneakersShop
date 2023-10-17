@@ -1,10 +1,10 @@
 import {Link} from 'react-router-dom'
-import cart from '../assets/img/Group.svg'
-import favorites from '../assets/img/heart.svg'
-import profileLogo from '../assets/img/Union.svg'
-import logo from '../assets/img/logo.svg'
+import cart from '../../assets/img/Group.svg'
+import favorites from '../../assets/img/heart.svg'
+import profileLogo from '../../assets/img/Union.svg'
+import logo from '../../assets/img/logo.svg'
 
-const Header = () => {
+const Header = (props) => {
     return (
         <header className='header'>
                 <nav className="header-inner">
@@ -18,12 +18,12 @@ const Header = () => {
                         </div>
                     </Link>
                     <div className="header-content">
-                        <Link to="/" className="header-cart">
+                        <div className="header-cart" onClick={props.handleClick}>
                             <div className="header-cart-logo">
                                 <img src={cart} alt="" />
                             </div>
                             <div className="header-cart-sum">250$</div>
-                        </Link>
+                        </div>
                         <Link to="/" className="header-favorites">
                             <div className="header-favorites-logo">
                                 <img src={favorites} alt="" />
