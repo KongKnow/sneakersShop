@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import img from '../../assets/img/search.svg'
-import heart from  '../../assets/img/cardHeart.svg'
-import heartActive from '../../assets/img/heartActive.svg'
-import add from '../../assets/img/plus.svg'
-import checked from '../../assets/img/addedGreen.svg'
 import Skeleton from '../Skeleton/Skeleton'
+import ProductsCard from "./ProductsCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getSneakers } from "../../redux/productsSlice/productsSlice";
 
 const Products = () => {
+    const dispatch = useDispatch()
+    const products = useSelector(state => state.products.products)
+    const loading = useSelector(state => state.products.loading)
     const [value, setValue] = useState('')
+
+    useEffect(() => {
+        dispatch(getSneakers())
+    }, [])
 
     const changeHandle = (e) => {
         setValue(e.target.value)
@@ -16,25 +22,11 @@ const Products = () => {
     const favoriteState = false
     const addCartState = false
 
-    const cartAdded = addCartState ? (
-        <div className="products-card-add active">
-            <img src={checked} alt="" />
-        </div>
-    ) : (
-        <div className="products-card-add">
-            <img src={add} alt="" />
-        </div>
-    )
+    const productsRender = products.map(product => (
+        <ProductsCard addCartState={addCartState} favoriteState={favoriteState} {...product} key={product.id}/>
+    ))
 
-    const favoriteAdded = favoriteState ? (
-        <div className="products-card-favorite active">
-            <img src={heartActive} alt="" />
-        </div>
-    ) : (
-        <div className="products-card-favorite">
-            <img src={heart} alt="" />
-        </div>
-    )
+    const loaded = loading ? <Skeleton/> : productsRender
 
     return (
         <section className="products">
@@ -47,25 +39,8 @@ const Products = () => {
             </div>
 
             <div className="products-list">
-                    <div className="products-card">
-                         <div className="products-card-image">
-                            <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/d706522a2e954ed686e9af9c00c51b3c_9366/x_plrboost-shoes.jpg" alt="" />
-                        </div>
-                        <div className="products-card-title">Men sneakers {'Adidas X_PLRBOOST'}</div>
-                        <div className="products-card-footer">
-                            <div className="products-card-price">
-                                <span>PRICE:</span>
-                                {160}$
-                            </div>
-                            <div className="products-card-box">
-                                {favoriteAdded}
-                                {cartAdded}
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                </div>
+                {loaded}
+            </div>
 
         </section>
     );

@@ -3,6 +3,9 @@ import Header from "../components/Header/Header";
 import Home from "../components/Home/Home";
 import { useState } from "react";
 import Cart from "../components/Cart/Cart";
+import Favorites from "../components/Favorites/Favorites";
+import ProfileOrders from "../components/Profile/ProfileOrders";
+import ProductsPage from "../components/Products/ProductsPage";
 
 const App = () => {
     const [showCart, setShowCart] = useState(false)
@@ -17,6 +20,9 @@ const App = () => {
             <Header handleClick={handleClick}/>
             <Routes>
                 <Route path="/" element={<Home/>}/>
+                <Route path="/favorites" element={<Favorites/>}/>
+                <Route path="/profile-orders" element={<ProfileOrders/>}/>
+                <Route path="/product/:id" element={<ProductsPage/>}/>
             </Routes>
             <Cart handleClick={handleClick} active={showCart}/>
         </section>

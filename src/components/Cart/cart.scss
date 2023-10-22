@@ -80,26 +80,7 @@
         }
 
     }
-    &-btn {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        font-size: 16px;
-        font-weight: 600;
-        align-items: center;
-        padding: 18px 30px;
-        background-color: #9DD458;
-        color: #fff;
-        border-radius: 18px;
-        border: 0;
-        cursor: pointer;
-        transition: all 0.1s linear;
-
-
-        &:hover {
-            background-color: #76a142;
-        }
-    }
+    
 
 
     &-list {

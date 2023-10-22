@@ -4,6 +4,8 @@
 @import '../components/Categories/categories.scss';
 @import '../components/Products/products.scss';
 @import '../components/Cart/cart.scss';
+@import '../components/Favorites/favorites.scss';
+@import '../components/Profile/profile.scss';
 
 *, ::after, ::before {
 	font-size: 14px;
@@ -42,11 +44,16 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+html {
+	height: 100%;
+}
 body {
 	line-height: 1;
 	background-color: 
-	#E7F6FF;
+	#E7F6FF;;
 	padding: 85px 85px 0 85px;
+	height: 100%;
 
 	&.active {
 		overflow: hidden;
@@ -94,4 +101,61 @@ table {
 	width: 5px;
 	background-color: #ccc;
 	border-radius: 20px;
+}
+
+.btn, .btn-cart, .btn-favorite {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	font-size: 16px;
+	font-weight: 600;
+	align-items: center;
+	padding: 18px 30px;
+	background-color: #9DD458;
+	color: #fff;
+	border-radius: 18px;
+	border: 0;
+	cursor: pointer;
+	transition: all 0.1s linear;
+
+
+	&:hover {
+		background-color: #76a142;
+	}
+
+}
+.btn-cart {
+	background-color: #000;
+	color: #fff;
+	width: 100%;
+	font-weight: 500;
+	margin-bottom: 10px;
+
+	&:hover {
+		background-color: #000;
+		opacity: 0.5;
+
+	}
+
+	&.active {
+		background: linear-gradient(#89F09C, #3CC755);
+	}
+}
+
+.btn-favorite {
+	background-color: #fff;
+	color: #000;
+	width: 100%;
+	font-weight: 500;
+	border: 1px solid #000;
+
+	&:hover {
+		background-color: #000;
+		color: #fff;
+	}
+
+	&.active {
+		background-color: #FEF0F0;
+		border: 1px solid #FEF0F0;
+	}
 }

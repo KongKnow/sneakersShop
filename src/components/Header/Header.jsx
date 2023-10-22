@@ -24,13 +24,13 @@ const Header = (props) => {
                             </div>
                             <div className="header-cart-sum">250$</div>
                         </div>
-                        <Link to="/" className="header-favorites">
+                        <Link to="/favorites" className="header-favorites">
                             <div className="header-favorites-logo">
                                 <img src={favorites} alt="" />
                             </div>
                             <div className="header-favorites-title">Favorites</div>
                         </Link>
-                        <Link to="/" className="header-profile">
+                        <Link to="/profile-orders" className="header-profile">
                             <div className="header-profile-logo">
                                 <img src={profileLogo} alt="" />
                             </div>
