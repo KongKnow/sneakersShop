@@ -15,10 +15,15 @@
     border-radius: 25px;
     box-shadow: 0 5px 10px #0000000A;
     cursor: pointer;
+    transition: all 0.15s linear;
 
     &:hover {
         background-color: #5C5C5C;
         color: #F9F9F9;
-        transition: all 0.15s linear;
+    }
+
+    &.active {
+        background-color: #5C5C5C;
+        color: #F9F9F9;
     }
 }

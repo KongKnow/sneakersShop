@@ -95,6 +95,7 @@
         &-box {
             display: flex;
             gap: 5px;
+            user-select: none;
         }
 
         &-favorite, &-add {
@@ -106,6 +107,8 @@
             border: 1px solid #F2F2F2;
             border-radius: 10px;
             transition: all 0.15s linear;
+            position: relative;
+            user-select: none;
 
             img {
                 width: 14px;
@@ -127,6 +130,23 @@
         &-favorite.active{
             background-color: 
             #FEF0F0;
+        }
+
+        &-counter {
+            user-select: none;
+            height: 18px;
+            width: 18px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #b4f3c0;
+            border-radius: 50%;
+            position: absolute;
+            top: -9px;
+            left: -9px;
         }
     }
 }

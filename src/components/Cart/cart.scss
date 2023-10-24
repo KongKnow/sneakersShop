@@ -135,6 +135,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-bottom: 10px;
+            user-select: none;
 
             transition: all 0.1s linear;
 
@@ -143,6 +145,22 @@
                 border-color: red;
             }
         }
+
+        &-counter {
+            text-align: center;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+
+            span {
+                user-select: none;
+                font-size: 18px;
+                cursor: pointer;
+                padding: 3px;
+            }
+        } 
 
     }
 

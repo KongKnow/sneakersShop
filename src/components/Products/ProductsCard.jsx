@@ -3,27 +3,36 @@ import heartActive from '../../assets/img/heartActive.svg'
 import add from '../../assets/img/plus.svg'
 import checked from '../../assets/img/addedGreen.svg'
 import {Link} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItemToCart, toggleItemToFavorites } from '../../redux/cartSlice/cartSlice'
 
-const ProductsCard = (props, {addCartState, favoriteState}) => {
-
+const ProductsCard = (props) => {
     const {imageUrl, title, price, id} = props
 
-    const cartAdded = addCartState ? (
-        <div className="products-card-add active">
+    const dispatch = useDispatch()
+    const cart = useSelector(state => state.cart.cart)
+    const favorites = useSelector(state => state.cart.favorites)
+
+    const productCart = cart.filter(item => item.id === id)
+    const productFavorites = favorites.filter(item => item.id === id)
+
+    const cartAdded = productCart.length ? (
+        <div className="products-card-add active" onClick={() => {dispatch(addItemToCart({imageUrl, title, price, id, quantity: 1}))}}>
             <img src={checked} alt="" />
+            <div className="products-card-counter">{productCart[0].quantity}</div>
         </div>
     ) : (
-        <div className="products-card-add">
+        <div className="products-card-add" onClick={() => {dispatch(addItemToCart({imageUrl, title, price, id, quantity: 1}))}}>
             <img src={add} alt="" />
         </div>
     )
 
-    const favoriteAdded = favoriteState ? (
-        <div className="products-card-favorite active">
+    const favoriteAdded = productFavorites.length ? (
+        <div className="products-card-favorite active" onClick={() => {dispatch(toggleItemToFavorites({imageUrl, title, price, id}))}}>
             <img src={heartActive} alt="" />
         </div>
     ) : (
-        <div className="products-card-favorite">
+        <div className="products-card-favorite" onClick={() => {dispatch(toggleItemToFavorites({imageUrl, title, price, id}))}}>
             <img src={heart} alt="" />
         </div>
     )
@@ -40,8 +49,8 @@ const ProductsCard = (props, {addCartState, favoriteState}) => {
                 {price}$
             </div>
             <div className="products-card-box">
-                {favoriteAdded}
                 {cartAdded}
+                {favoriteAdded}
             </div>
                             
             </div>

@@ -1,9 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import emoji from '../../assets/img/emojiEyes.svg' 
 import backArrow from '../../assets/img/backArrow.svg'
 import ProductsCard from '../Products/ProductsCard';
+import { useEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 
-const ProfileOrders = () => {
+const Profile = () => {
+    const {isAuth} = useAuth()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!isAuth) {
+            navigate('/sign-up') 
+        }
+    }, [])
+
     return (
         <section className="profile">
             <div className="profile-title">
@@ -32,4 +43,4 @@ const ProfileOrders = () => {
     );
 };
 
-export default ProfileOrders;
+export default Profile;

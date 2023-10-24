@@ -10,11 +10,12 @@ const SliderShop = () => {
 
     const settings = {
         infinite: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         initialSlide: 0,
-        fade: true,
         nextArrow: <NextArrow/>,
         prevArrow: <PrevArrow/>,
         responsive: [

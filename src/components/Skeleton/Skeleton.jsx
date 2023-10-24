@@ -4,8 +4,8 @@ const Skeleton = (props) => {
     
     const arr = []
 
-    for (let i = 0; i < 12; i++) {
-        arr.push(<div className="skeleton">
+    for (let i = 0; i < 8; i++) {
+        arr.push(<div className="skeleton" key={i}>
                     <ContentLoader 
                         speed={2}
                         width={210}

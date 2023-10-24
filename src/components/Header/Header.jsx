@@ -1,10 +1,17 @@
 import {Link} from 'react-router-dom'
 import cart from '../../assets/img/Group.svg'
-import favorites from '../../assets/img/heart.svg'
+import heart from '../../assets/img/heart.svg'
 import profileLogo from '../../assets/img/Union.svg'
 import logo from '../../assets/img/logo.svg'
+import heartActive from '../../assets/img/heartActive.svg'
+import { useSelector } from 'react-redux';
+import { useAuth } from '../../hooks/useAuth'
 
 const Header = (props) => {
+    const totalPrice = useSelector(state => state.cart.totalPrice)
+    const favorites = useSelector(state => state.cart.favorites)
+    const {isAuth, email} = useAuth()
+
     return (
         <header className='header'>
                 <nav className="header-inner">
@@ -22,19 +29,19 @@ const Header = (props) => {
                             <div className="header-cart-logo">
                                 <img src={cart} alt="" />
                             </div>
-                            <div className="header-cart-sum">250$</div>
+                            <div className="header-cart-sum">{totalPrice}$</div>
                         </div>
                         <Link to="/favorites" className="header-favorites">
                             <div className="header-favorites-logo">
-                                <img src={favorites} alt="" />
+                                <img src={favorites.length ? heartActive : heart} alt="" />
                             </div>
                             <div className="header-favorites-title">Favorites</div>
                         </Link>
-                        <Link to="/profile-orders" className="header-profile">
+                        <Link to="/profile" className="header-profile">
                             <div className="header-profile-logo">
                                 <img src={profileLogo} alt="" />
                             </div>
-                            <div className="header-profile-name">Profile</div>                                               
+                            <div className="header-profile-name">{isAuth ? email : 'Profile'}</div>                                               
                         </Link>
                     </div>
                 </nav>
