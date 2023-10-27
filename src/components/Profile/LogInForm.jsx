@@ -4,23 +4,44 @@ import { Link, useNavigate } from "react-router-dom";
 import * as Yup from 'yup'
 import { setUser } from "../../redux/userSlice/userSlice";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from "../../hooks/useAuth";
+import { useEffect, useState } from "react";
 
 const LogInForm = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const {isAuth} = useAuth
+    const [authError, setAuthError] = useState(false)
+
+    useEffect(() => {
+        if(isAuth) navigate('/profile')
+    }, [isAuth])
 
     const handleLogIn = (email, password) => {
         const auth = getAuth()
         signInWithEmailAndPassword(auth, email, password)
             .then(({user}) => {
+                localStorage.setItem('ss-account', JSON.stringify({
+                    email: user.email,
+                    id: user.uid,
+                    token: user.accessToken
+                }))
                 dispatch(setUser({
                     email: user.email,
                     id: user.uid,
                     token: user.accessToken
                 }))
+                setAuthError(false)
                 navigate('/profile')
             })
-            .catch(console.error)
+            .catch(err => {
+                setAuthError(false)
+                if(err.code === 'auth/too-many-requests') {
+                    setAuthError(true)
+                }
+                console.error(err)
+                
+            })
     }
 
     const formik = useFormik({
@@ -33,7 +54,7 @@ const LogInForm = () => {
             password: Yup.string().required('* required field')
         }),
         onSubmit: values => {
-            dispatch(handleLogIn(values.email, values.password))
+            handleLogIn(values.email, values.password)
         }
     })
 
@@ -41,6 +62,7 @@ const LogInForm = () => {
         <section className="form-wrapper">
             <div>
                 <h2 className="form-title">Log in</h2>
+                {authError && <div className="form-error">The email or password are wrong / You've made to many requests - try again later</div>}
                 <form className="form" onSubmit={formik.handleSubmit}>
                     <div className="form-divider">
                         <input 
@@ -67,6 +89,9 @@ const LogInForm = () => {
                     </div>
                     <button type="submit" className="btn-form">Log In</button>
                 </form>
+                <Link to={'/change-password'} className="form-descr pass">
+                    Forgot password?
+                </Link>
                 <Link to={'/sign-up'} className="form-descr">
                     I don't have an account.
                 </Link>

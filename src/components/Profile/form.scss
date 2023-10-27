@@ -18,6 +18,17 @@
         margin-bottom: 40px;
     }
 
+    &-error {
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+        background-color: rgb(255, 132, 132);
+        margin-bottom: 20px;
+        color: #fff;
+        border-radius: 10px;
+        font-weight: 300;
+    }
+
     &-divider {
         margin-bottom: 20px;
         input {
@@ -47,6 +58,12 @@
         color: #383838;
         font-weight: 300;
         font-size: 12px;
+
+        &.pass {
+            margin-bottom: 10px;
+            color: #000;
+            font-weight: 400;
+        }
 
         &:hover {
             color: #000;

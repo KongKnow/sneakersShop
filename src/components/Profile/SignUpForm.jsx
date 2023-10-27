@@ -4,15 +4,28 @@ import * as Yup from 'yup'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { setUser } from "../../redux/userSlice/userSlice";
 import { useDispatch } from "react-redux";
+import { useAuth } from "../../hooks/useAuth";
+import { useEffect } from "react";
 
 const SignUpForm = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const {isAuth} = useAuth()
+
+    useEffect(() => {
+        if(isAuth) navigate('/profile')
+    }, [isAuth])
+    
 
     const handleRegister = (email, password) => {
         const auth = getAuth()
         createUserWithEmailAndPassword(auth, email, password)
             .then(({user}) => {
+                localStorage.setItem('ss-account', JSON.stringify({
+                    email: user.email,
+                    id: user.uid,
+                    token: user.accessToken
+                }))
                 dispatch(setUser({
                     email: user.email,
                     id: user.uid,
