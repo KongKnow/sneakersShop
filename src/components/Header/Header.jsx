@@ -33,7 +33,7 @@ const Header = (props) => {
                         </div>
                         <Link to="/favorites" className="header-favorites">
                             <div className="header-favorites-logo">
-                                <img src={favorites.length ? heartActive : heart} alt="" />
+                                <img src={favorites.length && favorites.length ? heartActive : heart} alt="" />
                             </div>
                             <div className="header-favorites-title">Favorites</div>
                         </Link>
