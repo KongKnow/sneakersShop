@@ -6,6 +6,7 @@ import { setUser } from "../../redux/userSlice/userSlice";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 const SignUpForm = () => {
     const dispatch = useDispatch()
@@ -56,52 +57,58 @@ const SignUpForm = () => {
     })
 
     return (
-        <section className="form-wrapper">
-            <div>
-                <h2 className="form-title">Sign Up form</h2>
-                <form className="form" onSubmit={formik.handleSubmit}>
-                    <div className="form-divider">
-                        <input 
-                            type="text" 
-                            name="name" 
-                            placeholder="Name..."
-                            autoComplete="off"
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                        />
-                        {formik.errors.name && formik.touched.name ? <div className="error">{formik.errors.name}</div> : null}
-                    </div>
-                    <div className="form-divider">
-                        <input 
-                            type="email" 
-                            name="email" 
-                            placeholder="Email..."
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                        />
-                        {formik.errors.email && formik.touched.email ? <div className="error">{formik.errors.email}</div> : null}
-                    </div>
-                    <div className="form-divider">
-                        <input 
-                            type="password" 
-                            name="password" 
-                            placeholder="Password..."
-                            autoComplete="off"
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                        />
-                        {formik.errors.password && formik.touched.password ? <div className="error">{formik.errors.password}</div> : null}
-                    </div>
-                    <button type="submit" className="btn-form">Sign Up</button>
-                </form>
-                <Link to={'/log-in'} className="form-descr">
-                    I alredy have an account.
-                </Link>
-            </div>
-        </section>
+        <>
+            <Helmet>
+                <title>Sneakers Shop - Sign Up</title>
+                <meta name="description" content="home page" />
+            </Helmet>
+            <section className="form-wrapper">
+                <div>
+                    <h2 className="form-title">Sign Up form</h2>
+                    <form className="form" onSubmit={formik.handleSubmit}>
+                        <div className="form-divider">
+                            <input 
+                                type="text" 
+                                name="name" 
+                                placeholder="Name..."
+                                autoComplete="off"
+                                value={formik.values.name}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            {formik.errors.name && formik.touched.name ? <div className="error">{formik.errors.name}</div> : null}
+                        </div>
+                        <div className="form-divider">
+                            <input 
+                                type="email" 
+                                name="email" 
+                                placeholder="Email..."
+                                value={formik.values.email}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            {formik.errors.email && formik.touched.email ? <div className="error">{formik.errors.email}</div> : null}
+                        </div>
+                        <div className="form-divider">
+                            <input 
+                                type="password" 
+                                name="password" 
+                                placeholder="Password..."
+                                autoComplete="off"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            {formik.errors.password && formik.touched.password ? <div className="error">{formik.errors.password}</div> : null}
+                        </div>
+                        <button type="submit" className="btn-form">Sign Up</button>
+                    </form>
+                    <Link to={'/log-in'} className="form-descr">
+                        I alredy have an account.
+                    </Link>
+                </div>
+            </section>
+        </>
     );
 };
 

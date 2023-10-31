@@ -1,15 +1,19 @@
 .filter {
     position: relative;
 
-    img {
+    &.active {
+        background-color: #5C5C5C;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+
+    svg {
         transition: all 0.15s linear;
         transform: rotate(0deg);
     }
 
-    &:hover {
-        img {
-            transform: rotate(180deg);
-        }
+    svg.active {
+        transform: rotate(180deg);
     }
     
     &-active {
@@ -20,24 +24,49 @@
         align-items: center;
         gap: 5px;
         transition: all 0.15s linear;
+        user-select: none;
+        border-bottom: 1px solid #fff;
         
 
         &:hover {
             text-decoration: underline;
+        }
+
+        &.active {
+            padding: 10px 10px 5px;
+            color: #fff;
         }
     }
 
     &-list {
         display: none;
         flex-direction: column;
+        padding: 5px 10px 10px;
+        gap: 8px;
+        background-color: #fff;
+        width: 100%;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        
 
         &.active {
             position: absolute;
             display: flex;
+            background-color: #5C5C5C;
         }
 
         &-item {
             cursor: pointer;
+            font-weight: 500;
+            font-size: 15px;
+            color: #fff;
+            padding-left: 5px;
+            user-select: none;
+
+            &:hover {
+                opacity: 0.75;
+                text-decoration: underline;
+            }
         }
     }
 }

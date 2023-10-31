@@ -60,6 +60,14 @@ body {
 	&.active {
 		overflow: hidden;
 	}
+
+	@media (max-width: 768px) {
+		padding: 65px 45px 0 45px;
+	}
+
+	@media (max-width: 576px) {
+        padding: 50px 25px 0 25px;
+    }
 }
 ol, ul {
 	list-style: none;
@@ -92,7 +100,7 @@ table {
 	border: 1px solid #F3F3F3;
     border-radius: 40px;
 	width: 210px;
-	margin-bottom: 40px;
+	margin: 0 auto;
 }
 
 ::-webkit-scrollbar {
@@ -119,6 +127,11 @@ table {
 	border: 0;
 	cursor: pointer;
 	transition: all 0.1s linear;
+
+	@media (max-width: 576px) {
+		font-size: 12px;
+		padding: 11px 20px;
+	}
 
 
 	&:hover {
@@ -167,6 +180,15 @@ table {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin-top: 40px;
+
+	@media (max-width: 768px) {
+		margin-top: 30px;
+	}
+	
+	@media (max-width: 576px) {
+		margin-top: 20px;
+	}
 }
 .btn-products {
 	width: fit-content;
@@ -182,6 +204,12 @@ table {
 	font-size: 14px;
 	margin-bottom: 10px;
 	margin-top: -10px;
+
+	@media (max-width: 576px) {
+		font-size: 12px;
+		padding: 11px 20px;
+	}
+
 }
 
 .sorting {
@@ -191,4 +219,17 @@ table {
     width: 100%;
     background-color: #fff;
     padding: 0 60px 37px;
+
+	@media (max-width: 1200px) {
+		padding: 0 30px 27px;
+    }
+
+    @media (max-width: 768px) {
+        padding: 20px 20px 30px;
+    }
+
+	@media (max-width: 668px) {
+        flex-direction: column;
+		padding-bottom: 40px;
+    }
 }

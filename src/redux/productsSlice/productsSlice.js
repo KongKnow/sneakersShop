@@ -4,9 +4,9 @@ import axios from "axios";
 export const getSneakers = createAsyncThunk(
     'products/getSneakers',
     async (settings) => {
-        let url = `https://6528113c931d71583df1d45b.mockapi.io/products?page=${settings.page}&limit=8`
+        let url = `https://6528113c931d71583df1d45b.mockapi.io/products?page=${settings.page}&limit=8${settings.filter}${settings.search ? `&search=${settings.search}` : ''}`
         if (settings.category !== 'all') {
-            url = `https://6528113c931d71583df1d45b.mockapi.io/products?${settings.category === 'all' ? '' : `&category=${settings.category}`}&page=${settings.page}&limit=8`
+            url = `https://6528113c931d71583df1d45b.mockapi.io/products?${settings.category === 'all' ? '' : `&category=${settings.category}`}&page=${settings.page}&limit=8${settings.filter}${settings.search ? `&search=${settings.search}` : ''}`
         }
         const res = await axios(url)
         return res.data
@@ -24,9 +24,11 @@ export const getCategories = createAsyncThunk(
 const initialState = {
     products: [],
     categories: [],
+    filter: {},
     selectedCategory: 'all',
     loading: false,
-    error: false
+    error: false,
+    searchValue: ''
 }
 
 const productSlice = createSlice({
@@ -39,6 +41,15 @@ const productSlice = createSlice({
             } else {
                 state.selectedCategory = payload
             }
+        },
+        setFilter: (state, {payload}) => {
+            state.filter = payload
+        },
+        setSearchValue: (state, {payload}) => {
+            state.searchValue = payload
+        },
+        setLoading: (state) => {
+            state.loading = !state.loading
         }
     },
     extraReducers: (builder) => {
@@ -63,5 +74,5 @@ const productSlice = createSlice({
     }
 })
 
-export const {selectCategory} = productSlice.actions
+export const {selectCategory, setFilter, setSearchValue, setLoading} = productSlice.actions
 export default productSlice.reducer

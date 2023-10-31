@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getSneakersById } from "../../redux/singleProductSlice/singleProductSlice";
 import { addItemToCart, toggleItemToFavorites } from "../../redux/cartSlice/cartSlice";
+import { Helmet } from "react-helmet";
 
 
 const ProductsPage = () => {
@@ -22,6 +23,10 @@ const ProductsPage = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Sneakers Shop - {`${title}`}</title>
+                <meta name="description" content="home page" />
+            </Helmet>
             {loading || (<section className="product">
                 <div className="product-img">
                     <img src={imageUrl} alt="" />
