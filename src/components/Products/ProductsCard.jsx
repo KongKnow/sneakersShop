@@ -42,17 +42,19 @@ const ProductsCard = (props) => {
             <Link to={`/product/${id}`} className="products-card-image">
                 <img src={imageUrl} alt="" />
             </Link>
-            <Link to={`/product/${id}`} className="products-card-title">Men's sneakers {title}</Link>
-            <div className="products-card-footer">
-            <div className="products-card-price">
-                <span>PRICE:</span>
-                {price}$
-            </div>
-            <div className="products-card-box">
-                {cartAdded}
-                {favoriteAdded}
-            </div>
-                            
+            <div className='products-card-wrapper'>
+                <Link to={`/product/${id}`} className="products-card-title">Men's sneakers {title}</Link>
+                <div className="products-card-footer">
+                    <div className="products-card-price">
+                        <span>PRICE:</span>
+                        {price}$
+                    </div>
+                    <div className="products-card-box">
+                        {cartAdded}
+                        {favoriteAdded}
+                    </div>
+                                
+                </div>
             </div>
         </div>
     );
