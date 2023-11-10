@@ -27,18 +27,22 @@ const ProductsPage = () => {
                 <title>Sneakers Shop - {`${title}`}</title>
                 <meta name="description" content="home page" />
             </Helmet>
-            {loading || (<section className="product">
-                <div className="product-img">
-                    <img src={imageUrl} alt="" />
-                </div>
-                <div className="product-content">
-                    <h2 className="product-title">{title}</h2>
-                    <div className="product-subtitle">Men's sneakers</div>
-                    <div className="product-price">{price}$</div>
-                    <button className={productCart.length ? 'btn-cart active' : 'btn-cart'} onClick={() => {dispatch(addItemToCart({imageUrl, title, price, id, quantity: 1}))}}>Add to cart: { productCart.length ? productCart[0].quantity : 0}</button>
-                    <button className={productFavorites.length ? 'btn-favorite active' : 'btn-favorite'} onClick={() => {dispatch(toggleItemToFavorites({imageUrl, title, price, id}))}} >Favorite</button>
-                </div>
-            </section>)}
+            <section className="product">
+                {loading ||  (
+                    <>
+                        <div className="product-img">
+                            <img src={imageUrl} alt="" />
+                        </div>
+                        <div className="product-content">
+                            <h2 className="product-title">{title}</h2>
+                            <div className="product-subtitle">Men's sneakers</div>
+                            <div className="product-price">{price}$</div>
+                            <button className={productCart.length ? 'btn-cart active' : 'btn-cart'} onClick={() => {dispatch(addItemToCart({imageUrl, title, price, id, quantity: 1}))}}>Add to cart: { productCart.length ? productCart[0].quantity : 0}</button>
+                            <button className={productFavorites.length ? 'btn-favorite active' : 'btn-favorite'} onClick={() => {dispatch(toggleItemToFavorites({imageUrl, title, price, id}))}} >Favorite</button>
+                        </div>
+                    </>
+                )}
+            </section>
         </>
     );
 };
