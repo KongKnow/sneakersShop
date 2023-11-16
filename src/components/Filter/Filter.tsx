@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import { setFilter } from '../../redux/productsSlice/productsSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../../redux/store';
 
 const Filter: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const filters = [
     {
       name: 'Order by price (asc)',
@@ -27,10 +27,12 @@ const Filter: FC = () => {
   const [dropMenu, setDropMenu] = useState(false);
 
   useEffect(() => {
-    if (!Object.keys(filter).length) {
+    if (filter.name === "") {
       dispatch(setFilter(filters[0]));
     }
   }, []);
+
+  useEffect(() => {}, [filter])
 
   const handleClick = (item) => {
     dispatch(setFilter(item));
