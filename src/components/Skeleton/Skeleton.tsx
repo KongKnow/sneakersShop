@@ -1,7 +1,7 @@
 import { useEffect, FC, useRef, ReactElement } from "react"
 import ContentLoader from "react-content-loader"
 
-const Skeleton: FC = (props) => {
+const Skeleton: FC<any> = (props) => {
     const windowWidth: React.MutableRefObject<number> = useRef(window.innerWidth)
     const arr: ReactElement[] = []
 
