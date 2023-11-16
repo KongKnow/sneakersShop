@@ -86,8 +86,15 @@ const Products: FC = () => {
   }
 
   const productsRender = items.map((product) => <ProductsCard {...product} key={product.id} />);
+  const skeletonArr: any[] = []
 
-  const loaded = loading ? <Skeleton /> : productsRender;
+  const counter = items.length !== 0 ? items.length : 8
+
+  for (let i = 0; i < counter; i++) {
+    skeletonArr.push(<Skeleton key={i}/>)
+  }
+
+  const loaded = loading ? skeletonArr : productsRender;
   const empty = !productsRender.length ? (
     <div className="products-list-empty">Your request yielded no results :{'('}</div>
   ) : null;
