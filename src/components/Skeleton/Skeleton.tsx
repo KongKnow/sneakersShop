@@ -1,7 +1,7 @@
-import { useEffect, FC, useRef, ReactElement } from "react"
-import ContentLoader, {IContentLoaderProps} from "react-content-loader"
+import { useEffect, useRef, ReactElement } from "react"
+import ContentLoader from "react-content-loader"
 
-const Skeleton: FC<IContentLoaderProps> = (props) => {
+const Skeleton  = (props) => {
     const windowWidth: React.MutableRefObject<number> = useRef(window.innerWidth)
     const arr: ReactElement[] = []
 
@@ -18,6 +18,7 @@ const Skeleton: FC<IContentLoaderProps> = (props) => {
                         viewBox="0 0 210 280"
                         backgroundColor="#f3f3f3"
                         foregroundColor="#ecebeb"
+                        key={i}
                         {...props}
                     >
                         <rect x="30" y="153" rx="3" ry="3" width="150" height="15" /> 
@@ -34,6 +35,7 @@ const Skeleton: FC<IContentLoaderProps> = (props) => {
                     viewBox="0 0 286 122"
                     backgroundColor="#f3f3f3"
                     foregroundColor="#ecebeb"
+                    key={i}
                     {...props}
                 >
                     <rect x="122" y="15" rx="5" ry="5" width="144" height="15" /> 
