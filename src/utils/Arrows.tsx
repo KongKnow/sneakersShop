@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {FC} from 'react';
 
-export const NextArrow = (props) => {
+export const NextArrow: FC = (props: any) => {
     return (
         <div className="slider-next-arrow">
             <button onClick={props.onClick}>
@@ -12,7 +12,7 @@ export const NextArrow = (props) => {
     );
 };
 
-export const PrevArrow = (props) => {
+export const PrevArrow = (props: any) => {
     return (
         <div className="slider-prev-arrow">
             <button onClick={props.onClick}>

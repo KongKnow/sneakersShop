@@ -1,9 +1,11 @@
+import { FC } from "react";
+import box from '../../assets/img/box.svg';
 
-const CartEmpty = (props) => {
+const CartEmpty: FC<{handleClick:()=>void}> = (props) => {
     return (
         <div className="cart-empty">
                         <div className="cart-empty-img">
-                            <img src={props.box} alt="" />
+                            <img src={box} alt="" />
                         </div>
                         <div className="cart-empty-title">The cart is empty</div>
                         <div className="cart-empty-descr">Add at least one pair of sneakers to place an order</div>

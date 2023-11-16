@@ -1,6 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+export type TypeActionItem = {
+    imageUrl: string,
+    title: string,
+    price: number,
+    id: string,
+    quantity?: number
+}
+
+type TypeInitialState = {
+    cart: Required<TypeActionItem>[],
+    totalPrice: number,
+    favorites: TypeActionItem[]
+}
+
+const initialState: TypeInitialState = {
     cart: [],
     totalPrice: 0,
     favorites: []
@@ -11,7 +25,7 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addItemToCart: (state, {payload}) => {
+        addItemToCart: (state, {payload}: PayloadAction<Required<TypeActionItem>>) => {
             const item = state.cart.filter(item => item.id === payload.id)
 
             if (item.length !== 0) {
@@ -24,16 +38,16 @@ const cartSlice = createSlice({
                 state.totalPrice += payload.price
             }
         },
-        addItemsFromLocalStorage: (state, {payload}) => {
-            state.cart = JSON.parse(payload.cart)
-            state.favorites = JSON.parse(payload.favorites)
-            state.totalPrice = +payload.totalPrice
+        addItemsFromLocalStorage: (state, {payload}: PayloadAction<TypeInitialState>) => {
+            state.cart = payload.cart
+            state.favorites = payload.favorites
+            state.totalPrice = payload.totalPrice
         },
-        removeItemFromCart: (state, {payload}) => {
+        removeItemFromCart: (state, {payload}: PayloadAction<Required<TypeActionItem>>) => {
             state.cart = state.cart.filter(item => item.id !== payload.id)
             state.totalPrice -= payload.quantity ? payload.quantity*payload.price : payload.price
         },
-        addQuantityToCart: (state, {payload}) => {
+        addQuantityToCart: (state, {payload}: PayloadAction<Required<TypeActionItem>>) => {
             state.cart.map(item => {
                 if(item.id === payload.id) {
                     return {...item, quantity: item.quantity += 1}
@@ -43,7 +57,7 @@ const cartSlice = createSlice({
             })
             state.totalPrice += payload.price
         },
-        removeQuantityFromCart: (state, {payload}) => {
+        removeQuantityFromCart: (state, {payload}: PayloadAction<Required<TypeActionItem>>) => {
             state.cart.map(item => {
                 if(item.id === payload.id && item.quantity > 1) {
                     return {...item, quantity: item.quantity -= 1}
@@ -53,7 +67,7 @@ const cartSlice = createSlice({
             })
             if (payload.quantity > 1) state.totalPrice -= payload.price
         },
-        toggleItemToFavorites: (state, {payload}) => {
+        toggleItemToFavorites: (state, {payload}: PayloadAction<TypeActionItem>) => {
             if(state.favorites.filter(item => item.id === payload.id).length) {
                 state.favorites = state.favorites.filter(item => item.id !== payload.id)
             } else {

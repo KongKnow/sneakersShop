@@ -1,75 +1,83 @@
 import { useFormik } from "formik"
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from 'yup'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { setUser } from "../../redux/userSlice/userSlice";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from "../../hooks/useAuth";
-import { useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { Helmet } from "react-helmet";
+import { useAppDispatch } from "../../redux/store";
 
-const LogInForm = () => {
-    const dispatch = useDispatch()
+const SignUpForm: FC = () => {
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const {isAuth} = useAuth
-    const [authError, setAuthError] = useState(false)
+    const {isAuth} = useAuth()
 
     useEffect(() => {
         if(isAuth) navigate('/profile')
     }, [isAuth])
+    
 
-    const handleLogIn = (email, password) => {
+    const handleRegister = (email: string, password: string) => {
         const auth = getAuth()
-        signInWithEmailAndPassword(auth, email, password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then(({user}) => {
                 localStorage.setItem('ss-account', JSON.stringify({
                     email: user.email,
                     id: user.uid,
-                    token: user.accessToken
+                    token: user.refreshToken
                 }))
                 dispatch(setUser({
                     email: user.email,
                     id: user.uid,
-                    token: user.accessToken
+                    token: user.refreshToken
                 }))
-                setAuthError(false)
                 navigate('/profile')
             })
-            .catch(err => {
-                setAuthError(false)
-                if(err.code === 'auth/too-many-requests') {
-                    setAuthError(true)
-                }
-                console.error(err)
-                
-            })
+            .catch(console.error)
     }
 
     const formik = useFormik({
         initialValues: {
+            name: '',
             email: '',
             password: ''
         },
         validationSchema: Yup.object({
+            name: Yup.string().min(5, '* minimum 5 symbols').required('* required field'),
             email: Yup.string().email('* invalid email').required('* required field'),
-            password: Yup.string().required('* required field')
+            password: Yup.string()
+                        .min(8, '* password must contain at least 8 characters')
+                        .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/, {message: '* create a stronger password'})
+                        .required('* required field')
         }),
         onSubmit: values => {
-            handleLogIn(values.email, values.password)
+            handleRegister(values.email, values.password)
         }
     })
 
     return (
         <>
             <Helmet>
-                <title>Sneakers Shop - Log In</title>
+                <title>Sneakers Shop - Sign Up</title>
                 <meta name="description" content="home page" />
             </Helmet>
             <section className="form-wrapper">
                 <div>
-                    <h2 className="form-title">Log in</h2>
-                    {authError && <div className="form-error">The email or password are wrong / You've made to many requests - try again later</div>}
+                    <h2 className="form-title">Sign Up form</h2>
                     <form className="form" onSubmit={formik.handleSubmit}>
+                        <div className="form-divider">
+                            <input 
+                                type="text" 
+                                name="name" 
+                                placeholder="Name..."
+                                autoComplete="off"
+                                value={formik.values.name}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            {formik.errors.name && formik.touched.name ? <div className="error">{formik.errors.name}</div> : null}
+                        </div>
                         <div className="form-divider">
                             <input 
                                 type="email" 
@@ -93,13 +101,10 @@ const LogInForm = () => {
                             />
                             {formik.errors.password && formik.touched.password ? <div className="error">{formik.errors.password}</div> : null}
                         </div>
-                        <button type="submit" className="btn-form">Log In</button>
+                        <button type="submit" className="btn-form">Sign Up</button>
                     </form>
-                    <Link to={'/change-password'} className="form-descr pass">
-                        Forgot password?
-                    </Link>
-                    <Link to={'/sign-up'} className="form-descr">
-                        I don't have an account.
+                    <Link to={'/log-in'} className="form-descr">
+                        I alredy have an account.
                     </Link>
                 </div>
             </section>
@@ -107,4 +112,4 @@ const LogInForm = () => {
     );
 };
 
-export default LogInForm;
+export default SignUpForm;

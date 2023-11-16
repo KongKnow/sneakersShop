@@ -1,10 +1,11 @@
+import { FC } from "react";
 import Categories from "../Categories/Categories";
 import Filter from "../Filter/Filter";
 import Products from "../Products/Products";
 import SliderShop from "../Slider/SliderShop";
 import { Helmet } from "react-helmet";
 
-const Home = () => {
+const Home: FC = () => {
     return (
         <>
             <Helmet>

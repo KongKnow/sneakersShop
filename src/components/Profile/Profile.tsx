@@ -1,14 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
-import emoji from '../../assets/img/emojiEyes.svg' 
-import backArrow from '../../assets/img/backArrow.svg'
-import ProductsCard from '../Products/ProductsCard';
-import { useEffect } from 'react';
+import emoji from '../../assets/img/emojiEyes.svg'
+import { FC, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import {removeUser} from '../../redux/userSlice/userSlice'
 import { Helmet } from 'react-helmet';
 
-const Profile = () => {
+const Profile: FC = () => {
     const {isAuth, email} = useAuth()
     const navigate = useNavigate()
     const dispatch = useDispatch()

@@ -7,6 +7,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.8",
+    "@types/node": "^20.9.0",
     "axios": "^1.5.1",
     "firebase": "^10.5.0",
     "formik": "^2.4.5",
@@ -47,5 +49,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "typescript": "^5.2.2",
+    "@types/node": "^20.9.0"
   }
 }

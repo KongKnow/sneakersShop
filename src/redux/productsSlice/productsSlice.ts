@@ -1,9 +1,16 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
+type TypeUrlSettings = {
+    page: number,
+    filter: string,
+    search: string,
+    category: string
+}
 
 export const getSneakers = createAsyncThunk(
     'products/getSneakers',
-    async (settings) => {
+    async (settings: TypeUrlSettings) => {
         let url = `https://6528113c931d71583df1d45b.mockapi.io/products?page=${settings.page}&limit=8${settings.filter}${settings.search ? `&search=${settings.search}` : ''}`
         if (settings.category !== 'all') {
             url = `https://6528113c931d71583df1d45b.mockapi.io/products?${settings.category === 'all' ? '' : `&category=${settings.category}`}&page=${settings.page}&limit=8${settings.filter}${settings.search ? `&search=${settings.search}` : ''}`
@@ -21,10 +28,38 @@ export const getCategories = createAsyncThunk(
     }
 )
 
-const initialState = {
+export type TypeProduct = {
+    id: string,
+    imageUrl: string,
+    title: string,
+    sizes: number[],
+    price: number,
+    category: string,
+    rating: number
+}
+
+export type TypeFilter = {
+    name: string,
+    url: string
+}
+
+type TypeInitialState = {
+    products: TypeProduct[],
+    categories: string[],
+    filter: TypeFilter,
+    selectedCategory: string,
+    loading: boolean,
+    error: boolean,
+    searchValue: string
+}
+
+const initialState: TypeInitialState = {
     products: [],
     categories: [],
-    filter: {},
+    filter: {
+        name: '',
+        url: ''
+    },
     selectedCategory: 'all',
     loading: false,
     error: false,
@@ -35,17 +70,17 @@ const productSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        selectCategory: (state, {payload}) => {
+        selectCategory: (state, {payload}: PayloadAction<string>) => {
             if(state.selectedCategory === payload) {
                 state.selectedCategory = 'all'
             } else {
                 state.selectedCategory = payload
             }
         },
-        setFilter: (state, {payload}) => {
+        setFilter: (state, {payload}: PayloadAction<TypeFilter>) => {
             state.filter = payload
         },
-        setSearchValue: (state, {payload}) => {
+        setSearchValue: (state, {payload}: PayloadAction<string>) => {
             state.searchValue = payload
         },
         setLoading: (state) => {
@@ -54,7 +89,7 @@ const productSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getSneakers.fulfilled, (state, {payload}) => {
+            .addCase(getSneakers.fulfilled, (state, {payload}: PayloadAction<TypeProduct[]>) => {
                 state.products = payload
                 state.loading = false
                 state.error = false
@@ -67,7 +102,7 @@ const productSlice = createSlice({
                 state.loading = false
                 state.error = true
             })
-            .addCase(getCategories.fulfilled, (state, {payload}) => {
+            .addCase(getCategories.fulfilled, (state, {payload}: PayloadAction<string[]>) => {
                 state.categories = payload
             })
 

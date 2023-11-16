@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import { NextArrow, PrevArrow } from "../../utils/Arrows";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import { FC } from "react";
 
-const SliderShop = () => {
+const SliderShop: FC = () => {
 
     const settings = {
         infinite: true,

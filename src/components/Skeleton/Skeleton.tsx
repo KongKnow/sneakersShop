@@ -1,13 +1,12 @@
-import { useEffect, useRef } from "react"
+import { useEffect, FC, useRef, ReactElement } from "react"
 import ContentLoader from "react-content-loader"
 
-const Skeleton = (props) => {
-    const windowWidth = useRef(window.innerWidth)
-    const arr = []
+const Skeleton: FC = (props) => {
+    const windowWidth: React.MutableRefObject<number> = useRef(window.innerWidth)
+    const arr: ReactElement[] = []
 
     useEffect(() => {
         windowWidth.current = window.innerWidth
-        console.log(windowWidth.current)
     }, [])
 
     for (let i = 0; i < 8; i++) {

@@ -1,17 +1,18 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getSneakersById } from "../../redux/singleProductSlice/singleProductSlice";
 import { addItemToCart, toggleItemToFavorites } from "../../redux/cartSlice/cartSlice";
 import { Helmet } from "react-helmet";
+import { RootState, useAppDispatch } from "../../redux/store";
 
 
-const ProductsPage = () => {
-    const dispatch = useDispatch()
-    const {imageUrl, title, price} = useSelector(state => state.singleProduct.product)
-    const loading = useSelector(state => state.singleProduct.loading)
-    const cart = useSelector(state => state.cart.cart)
-    const favorites = useSelector(state => state.cart.favorites)
+const ProductsPage: FC = () => {
+    const dispatch = useAppDispatch()
+    const {imageUrl, title, price} = useSelector((state: RootState) => state.singleProduct.product)
+    const loading = useSelector((state: RootState) => state.singleProduct.loading)
+    const cart = useSelector((state: RootState) => state.cart.cart)
+    const favorites = useSelector((state: RootState) => state.cart.favorites)
     const {id} = useParams()
 
     const productCart = cart.filter(item => item.id === id)

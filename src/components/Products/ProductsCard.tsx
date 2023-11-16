@@ -1,3 +1,4 @@
+import {FC} from 'react'
 import heart from  '../../assets/img/cardHeart.svg'
 import heartActive from '../../assets/img/heartActive.svg'
 import add from '../../assets/img/plus.svg'
@@ -5,13 +6,21 @@ import checked from '../../assets/img/addedGreen.svg'
 import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart, toggleItemToFavorites } from '../../redux/cartSlice/cartSlice'
+import { RootState } from '../../redux/store'
 
-const ProductsCard = (props) => {
+type TypeProps = {
+    imageUrl: string,
+    title: string,
+    price: number,
+    id: string
+}
+
+const ProductsCard: FC<TypeProps> = (props) => {
     const {imageUrl, title, price, id} = props
 
     const dispatch = useDispatch()
-    const cart = useSelector(state => state.cart.cart)
-    const favorites = useSelector(state => state.cart.favorites)
+    const cart = useSelector((state: RootState) => state.cart.cart)
+    const favorites = useSelector((state: RootState) => state.cart.favorites)
 
     const productCart = cart.filter(item => item.id === id)
     const productFavorites = favorites.filter(item => item.id === id)

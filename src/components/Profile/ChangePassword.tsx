@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { Helmet } from "react-helmet";
+import { FC } from "react";
 
-const ChangePassword = () => {
+const ChangePassword: FC = () => {
 
     const navigate = useNavigate()
 
-    const handleReset = (email) => {
+    const handleReset = (email: string) => {
         const auth = getAuth()
         sendPasswordResetEmail(auth, email)
             .then(() => {

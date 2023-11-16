@@ -6,10 +6,12 @@ import logo from '../../assets/img/logo.svg'
 import heartActive from '../../assets/img/heartActive.svg'
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../hooks/useAuth'
+import { RootState } from '../../redux/store'
+import { FC } from 'react'
 
-const Header = (props) => {
-    const totalPrice = useSelector(state => state.cart.totalPrice)
-    const favorites = useSelector(state => state.cart.favorites)
+const Header: FC<{handleClick:()=>void}> = (props) => {
+    const totalPrice = useSelector((state: RootState) => state.cart.totalPrice)
+    const favorites = useSelector((state: RootState) => state.cart.favorites)
     const {isAuth, email} = useAuth()
 
     return (
