@@ -26,6 +26,14 @@
         transition: all 0.15s linear;
         user-select: none;
         border-bottom: 1px solid #fff;
+
+        @media (max-width: 768px) {
+            font-size: 14px;
+        }
+        
+        @media (max-width: 576px) {
+           font-size: 11px;
+        }
         
 
         &:hover {

@@ -30,7 +30,6 @@ const Filter: FC = () => {
   useEffect(() => {
     const filterLC = localStorage.getItem('filter')
     if(typeof(filterLC) === 'string' && !!filterLC) {
-      console.log('hheh')
       dispatch(setFilter(JSON.parse(filterLC)))
     } else {
       dispatch(setFilter(filters[0]));
