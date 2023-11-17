@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { setFilter } from '../../redux/productsSlice/productsSlice';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../redux/store';
+import { TypeFilter } from '../../redux/productsSlice/productsSlice';
 
 const Filter: FC = () => {
   const dispatch = useAppDispatch();
@@ -27,15 +28,20 @@ const Filter: FC = () => {
   const [dropMenu, setDropMenu] = useState(false);
 
   useEffect(() => {
-    if (filter.name === "") {
+    const filterLC = localStorage.getItem('filter')
+    if(typeof(filterLC) === 'string' && !!filterLC) {
+      console.log('hheh')
+      dispatch(setFilter(JSON.parse(filterLC)))
+    } else {
       dispatch(setFilter(filters[0]));
     }
   }, []);
 
   useEffect(() => {}, [filter])
 
-  const handleClick = (item) => {
+  const handleClick = (item: TypeFilter) => {
     dispatch(setFilter(item));
+    localStorage.setItem('filter', JSON.stringify(item))
     setDropMenu(false);
   };
 

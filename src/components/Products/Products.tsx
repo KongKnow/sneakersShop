@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { TypeProduct, getSneakers, setSearchValue } from '../../redux/productsSlice/productsSlice';
 import debounce from 'lodash.debounce';
 import { RootState, useAppDispatch } from '../../redux/store';
+import { v4 as uuidv4 } from 'uuid';
 
 const Products: FC = () => {
   const dispatch = useAppDispatch();
@@ -91,7 +92,7 @@ const Products: FC = () => {
   const counter = items.length !== 0 ? items.length : 8
 
   for (let i = 0; i < counter; i++) {
-    skeletonArr.push(<Skeleton key={i}/>)
+    skeletonArr.push(<Skeleton key={uuidv4()}/>)
   }
 
   const loaded = loading ? skeletonArr : productsRender;
