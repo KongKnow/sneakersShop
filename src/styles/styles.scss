@@ -53,7 +53,7 @@ body {
 	line-height: 1;
 	background-color: 
 	#E7F6FF;;
-	padding: 85px 85px 0 85px;
+	// padding: 85px 85px 0 85px;
 	height: 100%;
 
 	&.active {
@@ -84,11 +84,59 @@ table {
 	border-spacing: 0;
 }
 
+
+	.curtain {
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background-color: #fff;
+		z-index: 1000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		animation-name: noneCurtain;
+		-webkit-animation-name: noneCurtain;
+		-o-animation-name: noneCurtain;
+		-moz-animation-name: noneCurtain;
+		
+		
+		img {
+			width: 100px;
+			height: 100px;
+			display: block;
+		}
+		
+
+		&.active {
+			animation-fill-mode: forwards;
+			animation-duration: 0.4s;
+			animation-delay: 1s;
+			animation-timing-function: linear;
+			animation-iteration-count: 1;
+		}
+	}
+
+	@keyframes noneCurtain {
+		0% {
+			visibility: visible;
+			opacity: 1;
+		}
+		100% {
+			visibility: hidden;
+			opacity: 0;
+		}
+	}
+
+
 .container {
 	max-width: 100%;
 	width: 1080px;
 	margin: 0 auto;
 	box-shadow: 0px 10px 20px 0px #0000000A;
+	margin-top: 85px;
+	z-index: 500;
 
 	&.active {
 		overflow: hidden;
