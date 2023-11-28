@@ -15,6 +15,7 @@ const Products: FC = () => {
   const selectedCategory = useSelector((state: RootState) => state.products.selectedCategory);
   const filter = useSelector((state: RootState) => state.products.filter);
   const searchValue = useSelector((state: RootState) => state.products.searchValue);
+  const error = useSelector((state: RootState) => state.products.error)
   const [value, setValue] = useState('');
   const [page, setPage] = useState(1);
   const [items, setItems] = useState<TypeProduct[]>([]);
@@ -29,14 +30,16 @@ const Products: FC = () => {
   );
 
   useEffect(() => {
-    dispatch(
-      getSneakers({
-        category: selectedCategory,
-        page,
-        filter: filter.url,
-        search: searchValue,
-      }),
-    );
+    if(selectedCategory && filter) {
+      dispatch(
+        getSneakers({
+          category: selectedCategory,
+          page,
+          filter: filter.url,
+          search: searchValue,
+        }),
+      );
+    }
     prevPage.current = 1;
   }, [selectedCategory, page, filter, searchValue]);
 
@@ -100,6 +103,8 @@ const Products: FC = () => {
     <div className="products-list-empty">Your request yielded no results :{'('}</div>
   ) : null;
 
+  const errorShow = error ? <div className="products-list-empty">An error has occurred :{'('}</div> : null
+
   return (
     <section className="products">
       <div className="products-header">
@@ -132,8 +137,7 @@ const Products: FC = () => {
           </form>
         )}
       </div>
-
-      {empty && !loading ? (
+      {errorShow || (empty && !loading && !error ? (
         empty
       ) : (
         <>
@@ -147,7 +151,8 @@ const Products: FC = () => {
             </button>
           </div>
         </>
-      )}
+      ))}
+      {}
     </section>
   );
 };

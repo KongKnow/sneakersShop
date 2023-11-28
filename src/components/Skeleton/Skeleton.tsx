@@ -13,7 +13,7 @@ const Skeleton: FC  = (props) => {
                 <ContentLoader 
                     speed={2}
                     width={210}
-                    height={280}
+                    height={300}
                     viewBox="0 0 210 280"
                     backgroundColor="#f3f3f3"
                     foregroundColor="#ecebeb"
